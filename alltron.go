@@ -4,12 +4,12 @@ import (
 	"bufio"
 	"encoding/xml"
 	"fmt"
+	"github.com/dsbrng25b/mip/ftp"
 	"github.com/spf13/viper"
 	"gopkg.in/cheggaaa/pb.v1"
 	"io"
 	"io/ioutil"
 	"log"
-	"mip/ftp"
 	"os"
 	"path/filepath"
 )

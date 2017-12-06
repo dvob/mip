@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/dsbrng25b/mip"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"mip"
 	"os"
 )
 
