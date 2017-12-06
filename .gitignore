@@ -1,0 +1,7 @@
+files/*
+*.csv
+*.exe
+config.json
+config.yaml
+/mip
+/dist

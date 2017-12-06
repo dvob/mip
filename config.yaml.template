@@ -1,0 +1,63 @@
+#
+# output settings
+#
+output_encoding: iso-8859-1
+output_file: output.csv
+
+#
+# alltron import
+#
+alltron:
+  article_file: article.xml
+  price_file: price.xml
+  show_progress: true
+  use_ftp: false
+  ftp_address: ftp.server.com:21
+  ftp_user: user
+  ftp_password: password
+  ftp_article_file: article.xml
+  ftp_price_file: price.xml
+  ftp_save_files: true
+  ftp_save_dir: files/
+  id_prefix: A-
+  category: ""
+  category_number: "10.1"
+  purchase_factor: 1.0
+  selling_factor: 1.0
+  ignored:
+    CAT1:
+    - a CAT1 category to ignore
+    - another CAT1 category to ignore
+    MAFT:
+    - a manufacturer to ignore
+    - another manufacturer to ignore
+
+#
+# mitel import
+#
+mitel:
+  file: mitel.xlsx
+  start_line: 2
+  id_prefix: M-
+  category: ""
+  category_number: "10.2"
+  purchase_factor: 1
+  selling_repair_factor: 1.0
+  selling_factors:
+    S1: 0
+    S2: 10
+    S3: 28
+    S4: 100
+
+#
+# suprag import
+#
+suprag:
+  file: suprag.xlsx
+  start_line: 2
+  id_prefix: S-
+  category: ""
+  category_number: "10.3"
+  ignored_manufacturers:
+  - manufacturer1
+  - manufacturer2
