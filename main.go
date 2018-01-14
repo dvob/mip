@@ -1,13 +1,10 @@
 package mip
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/ghodss/yaml"
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/charmap"
 	"io"
-	"io/ioutil"
 	"strings"
 	"time"
 )
@@ -80,38 +77,6 @@ func (r *Record) FormatLine() string {
 
 func FormatHeader() string {
 	return "\"Id\",\"Beschreibung\",\"Kategorie\",\"Einkaufspreis\",\"Einkaufsfaktor\",\"Verkaufspreis\",\"Verkaufsfaktor\",\"Kategorie-Nummer\"\n"
-}
-
-type Config struct {
-	OutputFile     string        `json:"output_file"`
-	OutputEncoding string        `json:"output_encoding"`
-	AlltronConfig  AlltronConfig `json:"alltron"`
-	SupragConfig   SupragConfig  `json:"suprag"`
-	MitelConfig    MitelConfig   `json:"mitel"`
-}
-
-func ReadJsonConfig(path string, config *Config) error {
-	bytes, err := ioutil.ReadFile(path)
-	if err != nil {
-		return err
-	}
-	err = json.Unmarshal(bytes, config)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func ReadYamlConfig(path string, config *Config) error {
-	bytes, err := ioutil.ReadFile(path)
-	if err != nil {
-		return err
-	}
-	err = yaml.Unmarshal(bytes, config)
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 type ImportSummary struct {

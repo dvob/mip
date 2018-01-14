@@ -9,17 +9,6 @@ import (
 	"log"
 )
 
-type SupragConfig struct {
-	File                 string   `json:"file"`
-	SellingFactor        float64  `json:"selling_factor"`
-	PurchaseFactor       float64  `json:"purchase_factor"`
-	IdPrefix             string   `json:"id_prefix"`
-	Category             string   `json:"category"`
-	CategoryNumber       string   `json:"category_number"`
-	StartLine            int      `json:"start_line"`
-	IgnoredManufacturers []string `json:"ignored_manufacturers"`
-}
-
 type SupragImport struct {
 	name    string
 	cfg     *viper.Viper

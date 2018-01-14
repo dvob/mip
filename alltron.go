@@ -14,26 +14,6 @@ import (
 	"path/filepath"
 )
 
-type AlltronConfig struct {
-	ArticleFile       string              `json:"article_file"`
-	PriceFile         string              `json:"price_file"`
-	IgnoredCategories map[string][]string `json:"ignored"`
-	SellingFactor     float64             `json:"selling_factor"`
-	PurchaseFactor    float64             `json:"purchase_factor"`
-	IdPrefix          string              `json:"id_prefix"`
-	Category          string              `json:"category"`
-	CategoryNumber    string              `json:"category_number"`
-	ShowProgress      bool                `json:"show_progress"`
-	UseFtp            bool                `json:"use_ftp"`
-	FtpUser           string              `json:"ftp_user"`
-	FtpPassword       string              `json:"ftp_password"`
-	FtpAddress        string              `json:"ftp_address"`
-	FtpArticleFile    string              `json:"ftp_article_file"`
-	FtpPriceFile      string              `json:"ftp_price_file"`
-	FtpSaveFiles      bool                `json:"ftp_save_files"`
-	FtpSaveDir        string              `json:"ftp_save_dir"`
-}
-
 type AlltronImport struct {
 	name    string
 	cfg     *viper.Viper

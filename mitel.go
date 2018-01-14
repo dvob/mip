@@ -10,17 +10,6 @@ import (
 	"strings"
 )
 
-type MitelConfig struct {
-	File                string             `json:"file"`
-	SellingRepairFactor float64            `json:"selling_repair_factor"`
-	PurchaseFactor      float64            `json:"purchase_factor"`
-	IdPrefix            string             `json:"id_prefix"`
-	Category            string             `json:"category"`
-	CategoryNumber      string             `json:"category_number"`
-	StartLine           int                `json:"start_line"`
-	SellingFactors      map[string]float64 `json:"selling_factors"`
-}
-
 type MitelImport struct {
 	name    string
 	cfg     *viper.Viper
