@@ -11,6 +11,7 @@ import (
 
 type Importer interface {
 	Name() string
+	Init() error
 	Run() (*ImportSummary, error)
 }
 

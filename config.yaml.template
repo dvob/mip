@@ -37,7 +37,12 @@ alltron:
 #
 mitel:
   file: mitel.xlsx
-  start_line: 2
+  column_pattern:
+    id: "pattern"
+    selling_factor_name: "pattern"
+    selling_price: "pattern"
+    repair_price: "pattern"
+    description: "pattern"
   id_prefix: M-
   category: ""
   category_number: "10.2"

@@ -15,12 +15,13 @@ import (
 )
 
 type AlltronImport struct {
-	name    string
-	cfg     *viper.Viper
-	summary *ImportSummary
-	output  io.Writer
-	prices  map[string]XmlArticlePrice
-	bar     *pb.ProgressBar
+	name        string
+	cfg         *viper.Viper
+	summary     *ImportSummary
+	output      io.Writer
+	prices      map[string]XmlArticlePrice
+	bar         *pb.ProgressBar
+	initialized bool
 }
 
 func NewAlltronImport(cfg *viper.Viper, output io.Writer) *AlltronImport {
@@ -40,6 +41,11 @@ func NewAlltronImport(cfg *viper.Viper, output io.Writer) *AlltronImport {
 
 func (i *AlltronImport) Name() string {
 	return i.name
+}
+
+func (i *AlltronImport) Init() error {
+	i.initialized = true
+	return nil
 }
 
 type XmlArticlePrice struct {
@@ -106,6 +112,13 @@ func (i *AlltronImport) Run() (*ImportSummary, error) {
 	var articleReader io.ReadCloser
 	var priceReader io.ReadCloser
 	var err error
+
+	if !i.initialized {
+		err = i.Init()
+		if err != nil {
+			return i.summary, err
+		}
+	}
 
 	if i.cfg.GetBool("use_ftp") {
 		articleReader, priceReader, err = i.getFtpReaders()

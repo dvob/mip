@@ -10,10 +10,11 @@ import (
 )
 
 type SupragImport struct {
-	name    string
-	cfg     *viper.Viper
-	summary *ImportSummary
-	output  io.Writer
+	name        string
+	cfg         *viper.Viper
+	summary     *ImportSummary
+	output      io.Writer
+	initialized bool
 }
 
 func NewSupragImport(cfg *viper.Viper, output io.Writer) *SupragImport {
@@ -29,7 +30,20 @@ func (i *SupragImport) Name() string {
 	return i.name
 }
 
+func (i *SupragImport) Init() error {
+	i.initialized = true
+	return nil
+}
+
 func (i *SupragImport) Run() (*ImportSummary, error) {
+
+	if !i.initialized {
+		err := i.Init()
+		if err != nil {
+			return i.summary, err
+		}
+	}
+
 	i.summary.Start()
 
 	outputBufWriter := bufio.NewWriter(i.output)

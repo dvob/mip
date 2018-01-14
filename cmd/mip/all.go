@@ -28,9 +28,19 @@ var allCmd = &cobra.Command{
 
 		imports := []mip.Importer{
 			mip.NewAlltronImport(viper.Sub("alltron"), export),
-			mip.NewSupragImport(viper.Sub("suprag"), export),
-			mip.NewMitelImport(viper.Sub("mitel"), export)}
+			mip.NewMitelImport(viper.Sub("mitel"), export),
+			mip.NewSupragImport(viper.Sub("suprag"), export)}
 
+		// initialize importer
+		for _, imp := range imports {
+			err := imp.Init()
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "faild to initialize", imp.Name(), ": ", err)
+				os.Exit(1)
+			}
+		}
+
+		// start processing
 		all_ps := mip.StartImportSummary()
 		log.Println("ALL:", "start processing")
 		for _, imp := range imports {
