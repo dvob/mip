@@ -18,7 +18,7 @@ alltron:
   ftp_article_file: article.xml
   ftp_price_file: price.xml
   ftp_save_files: true
-  ftp_save_dir: files/
+  ftp_save_dir: files/downloads/
   id_prefix: A-
   category: ""
   category_number: "10.1"
@@ -58,7 +58,10 @@ mitel:
 # suprag import
 #
 suprag:
-  file: suprag.xlsx
+  file: suprag.xlsx # can also be an http url like http://myhost.org/path/to/myfile.xlsx
+  max_download_file_size: 5000000 # in bytes (=5M)
+  save_file: true # save downloaded files if file is url
+  save_dir: files/downloads/
   start_line: 2
   id_prefix: S-
   category: ""
