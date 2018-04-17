@@ -142,11 +142,6 @@ SUPRAG_XLSX:
 			log.Println("failed to read line %d: could not parse %s", lineNumber, sheet.Rows[0].Cells[7])
 			continue
 		}
-		sellingPrice, err := row.Cells[6].Float()
-		if err != nil {
-			log.Println("failed to read line %d: could not parse %s", lineNumber, sheet.Rows[0].Cells[6])
-			continue
-		}
 		i.summary.Articles++
 		//handle ignored manufacturers
 		manufacturer := row.Cells[2].String()
@@ -162,8 +157,8 @@ SUPRAG_XLSX:
 			Description:    row.Cells[9].String(),
 			PurchasePrice:  purchasePrice,
 			PurchaseFactor: i.cfg.GetFloat64("purchase_factor"),
-			SellingFactor:  sellingPrice / purchasePrice,
-			SellingPrice:   sellingPrice,
+			SellingFactor:  i.cfg.GetFloat64("selling_factor"),
+			SellingPrice:   purchasePrice * i.cfg.GetFloat64("selling_factor"),
 			Category:       "Suprag",
 			CategoryNumber: i.cfg.GetString("category_number"),
 		}

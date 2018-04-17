@@ -65,6 +65,8 @@ suprag:
   start_line: 2
   id_prefix: S-
   category: ""
+  purchase_factor: 1.0
+  selling_factor: 1.0
   category_number: "10.3"
   ignored_manufacturers:
   - manufacturer1
