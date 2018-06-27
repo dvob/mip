@@ -1,6 +1,10 @@
 language: go
 go:
 - 1.10.x
+
+before_install:
+- go get
+
 script:
 - GOOS=windows GOARCH=amd64 go build -o mip-amd64.exe
 - GOOS=linux   GOARCH=amd64 go build -o mip
@@ -9,8 +13,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: bFfwiWp35G6Z4hDIaFt4u0Wv9Zamwjp18dAvLf/okmm8Wn/dOcuG57J7ApgeFgrJQ6LwAd16ZKfyqAP4gpl9by5MSAyjOVubn/TtRy4A7qs26iK9zX76LJCjAzTqSKbh9OtU5UKxMKjVsZkC+WGLD2xuJo9eaFkcRUd6kPljMRnBMKyLF5VEgUyjssCpBgWsRPC+Zt/d9b2F+gPE9DkQltYoX1/dj3Jm+B0NI39+OszPtIokmeK3PnCLMbLgSLkzFJhjGmHrJkgX5+ZycqzrkPcczx1jGgPfNjPh7z6Hz8TMKflX3h1vYABy7xcJxZYm206dSqB2Kor+lMBtCU0AyCME4j2OjXXXGmc0kAEIrrppoiyHHEJhY97oLqWFupILp0YnTdxU23lbp9X6ouYN6ZAAFsgMV+9J8Ie3zTdDhQgUd65PxUURQg2v7VCCXSpEX4cXU4+5l+hiyHswywBBbqS1j5P8ulbp6jtvXKfkhSvwagSSLAPRG4K83xXzVfW7aeZ7AJ9d9lSQx1SyJaGcg3pGAlJYuu5CbetsF7UsFXJGYXeIka6SKrK0kaBb5wKw76yGu45UEWcZ83QQolddM9cIOycDS5JzaxBtbw98RjOBTJqxviWlLkPNskCofC00hTgCH81Gcgw13pUJXQpns1HEC3lEqqpEQz49OIglpj4=
-  file: foo
+    secure: ZNZzjaTVPt+En/6gR5R7tigEaxK2NNM5iPn6sgONWrfo5n+vtarlE+MugXPEIBgGDALy38GaDRcYSSBSbRl7re12jTDGgRxeJpX3dOVBQtT3y2jl7SxM2PTiyTkaNkxl0ZrmVBu6NCpBV6UNkqaNyuUydo9cdqqTmvd3ASIkm6fL4bXeVqAnVe/9SR438PrpQr3xznxQVVEW+IY2aO3mFg53loRNhy3oNLbC64Pv2A+tlm71rdQKiCtHuGeRMdATtdNf4eP0Iuzpvu8XTxZZP+Mq6Hekj0xG8NhU3WAqZgZND9NLwpJIXlajW4zgzzk/gYrtkuztmnNN1MA1nLvWQhkeXVVuZAhbuGxFjsDVyr6lLtF6rB2AiUe72KQeTCqzG7V9SMBu1a2olswu8dkE1nMx7nmXW0NsGOtWbwSzz/TrXdFUA7uThQgsp1xFliZX7nvHthNjV9ISzEjVADZF/fTcmIQfMvxYAcr+J5imnWK4wU6dsQnqvUFDjBaR6EMmjpndA3BNYdpC9bsWxsOnzkD6fvDyyWXsYJxDHFLZDbZ0umnEhbvVMQCuMdaZ+wgeOy0vFwad4amVMIz2gLEB8VsnSz0056AsZUAyas2+zpEKfkCydq0Xx+qfZ8SVz124um3iRH+XFtUcSEJjD3tRcUVcL7aFjaQqaTrummkfQiw=
+  file: asdf
   on:
     repo: dsbrng25b/mip
-    tags: true
