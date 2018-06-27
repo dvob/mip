@@ -10,7 +10,7 @@ script:
 - make
 
 before_deploy:
-- sha256sum mip mip-amd64.exe > SHASUMS256.txt
+- sha256sum mip mip-win64.exe > SHASUMS256.txt
 
 deploy:
   provider: releases
