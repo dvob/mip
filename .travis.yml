@@ -1,0 +1,16 @@
+language: go
+go:
+- 1.10.x
+script:
+- GOOS=windows GOARCH=amd64 go build -o mip-amd64.exe
+- GOOS=linux   GOARCH=amd64 go build -o mip
+before_deploy:
+- sha256sum mip mip-amd64.exe > SHASUMS256.txt
+deploy:
+  provider: releases
+  api_key:
+    secure: bFfwiWp35G6Z4hDIaFt4u0Wv9Zamwjp18dAvLf/okmm8Wn/dOcuG57J7ApgeFgrJQ6LwAd16ZKfyqAP4gpl9by5MSAyjOVubn/TtRy4A7qs26iK9zX76LJCjAzTqSKbh9OtU5UKxMKjVsZkC+WGLD2xuJo9eaFkcRUd6kPljMRnBMKyLF5VEgUyjssCpBgWsRPC+Zt/d9b2F+gPE9DkQltYoX1/dj3Jm+B0NI39+OszPtIokmeK3PnCLMbLgSLkzFJhjGmHrJkgX5+ZycqzrkPcczx1jGgPfNjPh7z6Hz8TMKflX3h1vYABy7xcJxZYm206dSqB2Kor+lMBtCU0AyCME4j2OjXXXGmc0kAEIrrppoiyHHEJhY97oLqWFupILp0YnTdxU23lbp9X6ouYN6ZAAFsgMV+9J8Ie3zTdDhQgUd65PxUURQg2v7VCCXSpEX4cXU4+5l+hiyHswywBBbqS1j5P8ulbp6jtvXKfkhSvwagSSLAPRG4K83xXzVfW7aeZ7AJ9d9lSQx1SyJaGcg3pGAlJYuu5CbetsF7UsFXJGYXeIka6SKrK0kaBb5wKw76yGu45UEWcZ83QQolddM9cIOycDS5JzaxBtbw98RjOBTJqxviWlLkPNskCofC00hTgCH81Gcgw13pUJXQpns1HEC3lEqqpEQz49OIglpj4=
+  file: foo
+  on:
+    repo: dsbrng25b/mip
+    tags: true
