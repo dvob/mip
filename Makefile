@@ -12,8 +12,9 @@ BUILD_DATE=`date +%FT%T%z`
 LDFLAGS=-ldflags "-w -s -X main.version=${VERSION} -X main.commit=${GIT_COMMIT} -X main.date=${BUILD_DATE}"
 
 build:
-	go build -o ${BINARY} ${LDFLAGS} github.com/dsbrng25b/mip/cmd/mip
-	#GOOS=windows GOARCH=amd64 go build -o ${WIN_BINARY} ${LDFLAGS} github.com/dsbrng25b/mip/cmd/mip
+	mkdir out
+	go build -o out/${BINARY} ${LDFLAGS} github.com/dsbrng25b/mip/cmd/mip
+	GOOS=windows GOARCH=amd64 go build -o out/${WIN_BINARY} ${LDFLAGS} github.com/dsbrng25b/mip/cmd/mip
 
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
