@@ -20,5 +20,6 @@ deploy:
   - mip
   - mip-win64.exe
   - SHASUMS256.txt
+  skip_cleanup: true
   on:
     repo: dsbrng25b/mip
