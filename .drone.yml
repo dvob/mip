@@ -15,7 +15,9 @@ steps:
   - ls -latr
   - env
 - name: release tag
-  image: plugins/github-release
+  image: alpine
+  commands:
+  - env
   settings:
     api_key:
       from_secret: github_token
