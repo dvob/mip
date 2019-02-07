@@ -1,6 +1,10 @@
 kind: pipeline
 name: default
 
+workspace:
+  base: /go
+  path: src/github.com/dsbrng25b/mip
+
 steps:
 - name: build
   image: golang
