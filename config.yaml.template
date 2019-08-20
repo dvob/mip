@@ -12,7 +12,8 @@ alltron:
   price_file: price.xml
   show_progress: true
   use_ftp: false
-  ftp_address: ftp.server.com:21
+  use_sftp: true
+  ftp_address: ftp.server.com:22
   ftp_user: user
   ftp_password: password
   ftp_article_file: article.xml

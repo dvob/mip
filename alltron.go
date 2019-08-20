@@ -4,14 +4,16 @@ import (
 	"bufio"
 	"encoding/xml"
 	"fmt"
-	"github.com/dsbrng25b/mip/ftp"
-	"github.com/spf13/viper"
-	"gopkg.in/cheggaaa/pb.v1"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/dsbrng25b/mip/ftp"
+	"github.com/spf13/viper"
+	"golang.org/x/text/encoding/charmap"
+	"gopkg.in/cheggaaa/pb.v1"
 )
 
 type AlltronImport struct {
@@ -61,30 +63,59 @@ type XmlArticle struct {
 }
 
 func (i *AlltronImport) getFtpReaders() (ar, pr io.ReadCloser, err error) {
-	articleReader, err := ftp.Open(
-		i.cfg.GetString("ftp_address"),
-		i.cfg.GetString("ftp_user"),
-		i.cfg.GetString("ftp_password"),
-		i.cfg.GetString("ftp_article_file"))
-	if err != nil {
-		return nil, nil, err
-	}
-	priceReader, err := ftp.Open(
-		i.cfg.GetString("ftp_address"),
-		i.cfg.GetString("ftp_user"),
-		i.cfg.GetString("ftp_password"),
-		i.cfg.GetString("ftp_price_file"))
-	if err != nil {
-		return nil, nil, err
+	var (
+		articleReader io.ReadCloser
+		priceReader   io.ReadCloser
+		size          int64
+	)
+	if i.cfg.GetBool("use_sftp") {
+		log.Println("use sftp")
+		articleReader, size, err = ftp.SFTPOpen(
+			i.cfg.GetString("ftp_address"),
+			i.cfg.GetString("ftp_user"),
+			i.cfg.GetString("ftp_password"),
+			i.cfg.GetString("ftp_article_file"))
+		if err != nil {
+			return nil, nil, err
+		}
+
+		priceReader, _, err = ftp.SFTPOpen(
+			i.cfg.GetString("ftp_address"),
+			i.cfg.GetString("ftp_user"),
+			i.cfg.GetString("ftp_password"),
+			i.cfg.GetString("ftp_price_file"))
+		if err != nil {
+			return nil, nil, err
+		}
+	} else {
+		log.Println("use ftp")
+		articleReader, size, err = ftp.Open(
+			i.cfg.GetString("ftp_address"),
+			i.cfg.GetString("ftp_user"),
+			i.cfg.GetString("ftp_password"),
+			i.cfg.GetString("ftp_article_file"))
+		if err != nil {
+			return nil, nil, err
+		}
+
+		priceReader, _, err = ftp.Open(
+			i.cfg.GetString("ftp_address"),
+			i.cfg.GetString("ftp_user"),
+			i.cfg.GetString("ftp_password"),
+			i.cfg.GetString("ftp_price_file"))
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 
 	if i.bar != nil {
-		i.bar.Total = articleReader.Size
+		i.bar.Total = size
 	}
 	return articleReader, priceReader, nil
 }
 
 func (i *AlltronImport) getFileReaders() (ar, pr io.ReadCloser, err error) {
+	log.Println("use local file")
 	articleFile, err := os.Open(i.cfg.GetString("article_file"))
 	if err != nil {
 		return nil, nil, err
@@ -177,16 +208,29 @@ func (i *AlltronImport) process(articleReader, priceReader io.Reader) (*ImportSu
 
 	outputBufWriter := bufio.NewWriter(i.output)
 
+	charsetReaderFunc := func(charset string, input io.Reader) (io.Reader, error) {
+		if charset == "ISO-8859-1" || charset == "Windows-1252" {
+			// Windows-1252 is a superset of ISO-8859-1, so should do here
+			return charmap.Windows1252.NewDecoder().Reader(input), nil
+		}
+		return nil, fmt.Errorf("Unknown charset: %s", charset)
+	}
+
 	articleDecoder := xml.NewDecoder(articleReader)
+	articleDecoder.CharsetReader = charsetReaderFunc
 	priceDecoder := xml.NewDecoder(priceReader)
+	priceDecoder.CharsetReader = charsetReaderFunc
 
 	var inElement string
 
 XML_TOKEN:
 	for {
-		t, _ := articleDecoder.Token()
-		if t == nil {
-			break
+		t, err := articleDecoder.Token()
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			return nil, err
 		}
 		switch se := t.(type) {
 		case xml.StartElement:
