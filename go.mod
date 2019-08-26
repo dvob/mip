@@ -20,10 +20,11 @@ require (
 	github.com/spf13/jwalterweatherman v0.0.0-20180109140146-7c0cea34c8ec
 	github.com/spf13/pflag v1.0.1
 	github.com/spf13/viper v1.0.2
+	github.com/stretchr/testify v1.4.0 // indirect
 	github.com/tealeg/xlsx v1.0.3
 	golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
 	golang.org/x/sys v0.0.0-20190412213103-97732733099d
 	golang.org/x/text v0.3.0
 	gopkg.in/cheggaaa/pb.v1 v1.0.25
-	gopkg.in/yaml.v2 v2.2.1
+	gopkg.in/yaml.v2 v2.2.2
 )

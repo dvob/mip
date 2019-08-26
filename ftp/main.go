@@ -1,7 +1,9 @@
 package ftp
 
 import (
+	"bufio"
 	"io"
+	"io/ioutil"
 	"net"
 	"time"
 
@@ -92,5 +94,9 @@ func SFTPOpen(addr, user, password, path string) (io.ReadCloser, int64, error) {
 		return nil, 0, err
 	}
 
-	return file, fileInfo.Size(), nil
+	MB := 1 << (2 * 10) //1 Mebibyte
+	bufReader := bufio.NewReaderSize(file, MB*10)
+	bufReadCloser := ioutil.NopCloser(bufReader)
+
+	return bufReadCloser, fileInfo.Size(), nil
 }
