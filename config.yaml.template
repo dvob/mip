@@ -8,17 +8,27 @@ output_file: output.csv
 # alltron import
 #
 alltron:
+  # path to read the article_file only used if use_ftp is false
   article_file: article.xml
+  # path to read the price_file only used if use_ftp is false
   price_file: price.xml
+  # show progress bar
   show_progress: true
-  use_ftp: false
+  # download files from
+  use_ftp: true
+  # only considered if use_ftp is true
   use_sftp: true
+  # address to the ftp/sftp server. if use_sftp is false this is likely to be port :21 instead
   ftp_address: ftp.server.com:22
   ftp_user: user
   ftp_password: password
+  # path to the article file on the server
   ftp_article_file: article.xml
+  # path to the price file on the server
   ftp_price_file: price.xml
+  # do not only process the files but also save them locally. this is useful that you can double check if everything looks as it should
   ftp_save_files: true
+  # if ftp_save_files is true, the files are stored under this path
   ftp_save_dir: files/downloads/
   id_prefix: A-
   category: ""
