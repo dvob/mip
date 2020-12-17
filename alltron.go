@@ -10,7 +10,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/dsbrng25b/mip/ftp"
+	"github.com/dvob/mip/ftp"
 	"github.com/spf13/viper"
 	"golang.org/x/text/encoding/charmap"
 	"gopkg.in/cheggaaa/pb.v1"

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dsbrng25b/mip"
+	"github.com/dvob/mip"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"log"

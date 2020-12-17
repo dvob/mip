@@ -3,7 +3,7 @@ name: default
 
 workspace:
   base: /go
-  path: src/github.com/dsbrng25b/mip
+  path: src/github.com/dvob/mip
 
 steps:
 - name: build

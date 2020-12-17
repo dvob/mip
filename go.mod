@@ -1,4 +1,4 @@
-module github.com/dsbrng25b/mip
+module github.com/dvob/mip
 
 go 1.12
 
